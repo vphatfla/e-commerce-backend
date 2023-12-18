@@ -1,0 +1,8 @@
+{
+    "database": {
+        "username": "newuser1",
+        "password": "password",
+        "hostname": "127.0.0.1:3306",
+        "dbname": "app_data_test"
+    }
+}
