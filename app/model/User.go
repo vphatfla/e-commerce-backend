@@ -7,4 +7,5 @@ type User struct {
 	Email     string
 	Address   string
 	Phone     string
+	Password  []byte
 }

@@ -2,31 +2,30 @@ package query
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/e-commerce-backend/app/database"
 	"github.com/e-commerce-backend/app/model"
 )
 
-func SaveNewUser(user model.User) {
+func SaveNewUser(user model.User) error {
 	db := database.DBConnection()
 
 	pingErr := db.Ping()
 
 	if pingErr != nil {
-		log.Fatal("Ping error inside save_user  ", pingErr)
+		return pingErr
 	}
 
-	fmt.Println("Save_user: connection OK")
-
 	// build query
-	query := "INSERT INTO User (FirstName, LastName, Email, Address, Phone) VALUES (?,?,?,?,?);"
+	query := "INSERT INTO User (FirstName, LastName, Email, Address, Phone, HashedPassword) VALUES (?,?,?,?,?,?);"
 
-	insertResult, err := db.Exec(query, user.FirstName, user.LastName, user.Email, user.Address, user.Phone)
+	insertResult, err := db.Exec(query, user.FirstName, user.LastName, user.Email, user.Address, user.Phone, user.Password)
 
 	if err != nil {
-		log.Fatal("Error inserting ", user.FirstName, " ---  ", err)
+		return err
 	}
 
 	fmt.Println("Success!", insertResult)
+
+	return nil
 }

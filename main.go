@@ -2,12 +2,9 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
-	"log"
 
+	"github.com/e-commerce-backend/app/auth"
 	"github.com/e-commerce-backend/app/database"
-	"github.com/e-commerce-backend/app/database/query"
-	"github.com/e-commerce-backend/app/model"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -16,39 +13,60 @@ var DB *sql.DB
 func main() {
 
 	database.InitDBConnection()
+	auth.InitHashing()
+	// var DB = database.DBConnection()
 
-	var DB = database.DBConnection()
+	// // check ping
+	// fmt.Println("Check ping in MAIN")
 
-	// check ping
-	fmt.Println("Check ping in MAIN")
+	// pingErr := DB.Ping()
 
-	pingErr := DB.Ping()
+	// if pingErr != nil {
+	// 	log.Fatal("Ping in main error", pingErr)
+	// }
 
-	if pingErr != nil {
-		log.Fatal("Ping in main error", pingErr)
-	}
-
-	fmt.Println("Connect successfully!")
+	// fmt.Println("Connect successfully!")
 
 	// checking the save new user
-	newUser := model.User{
-		FirstName: "Harry",
-		LastName:  "Potter",
-		Email:     "harry@yahoo.com",
-		Phone:     "111 111-2222",
-		Address:   "111 Horward Street",
-	}
+	// tempHasheed, _ := auth.HashPassword("password123")
+	// newUser := model.User{
+	// 	FirstName: "Harry",
+	// 	LastName:  "Potter",
+	// 	Email:     "harry@yahoo.com",
+	// 	Phone:     "111 111-2222",
+	// 	Address:   "111 Horward Street",
+	// 	Password:  tempHasheed,
+	// }
 
-	query.SaveNewUser(newUser)
+	// err := query.SaveNewUser(newUser)
+
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// check the get user
 
-	resultUsers, err := query.GetUserByID(10)
+	// resultUsers, err := query.GetUserByID(10)
 
-	if err != nil {
-		log.Fatal("Error query user by id ", err)
-	}
+	// if err != nil {
+	// 	log.Fatal("Error query user by id ", err)
+	// }
 
-	fmt.Println(resultUsers)
-	defer DB.Close()
+	// fmt.Println(resultUsers)
+
+	// // check the get user by first name
+
+	// resultUsers1, err := query.GetUsersByFirstName("Harry")
+
+	// for _, u := range resultUsers1 {
+	// 	fmt.Println(u)
+	// }
+
+	// saveErr := query.SaveUserPassword("example@gmail.com", "password123")
+
+	// if saveErr != nil {
+	// 	log.Fatal("Error saving user password ", saveErr)
+	// }
+
+	//defer DB.Close()
 }
