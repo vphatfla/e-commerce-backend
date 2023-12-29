@@ -5,6 +5,7 @@ import (
 
 	"github.com/e-commerce-backend/app/auth"
 	"github.com/e-commerce-backend/app/database"
+	populatefakedata "github.com/e-commerce-backend/app/database/populate_fake_data"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -14,6 +15,8 @@ func main() {
 
 	database.InitDBConnection()
 	auth.InitHashing()
+
+	populatefakedata.PopulateDummyUsers()
 	// var DB = database.DBConnection()
 
 	// // check ping
